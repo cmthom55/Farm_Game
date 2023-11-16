@@ -1,20 +1,21 @@
 import org.junit.Test;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import static org.junit.Assert.assertEquals;
 
 public class SimpleTest {
 
     @Test
     public void testHelloWorld() {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+        // Redirect System.out to capture the printed output
+        final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
 
+        // Call the method to be tested
         Main.helloWorld();
 
+        // Reset System.out to the original PrintStream
         System.setOut(System.out);
 
-        assertEquals("Hello, World!\n", outContent.toString());
+        // Verify the printed output
+        assertEquals("Hello, World!\n\n", outputStream.toString());
     }
 }

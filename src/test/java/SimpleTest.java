@@ -4,7 +4,7 @@ import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 
-public class MainTest {
+public class SimpleTest {
 
     @Test
     public void testHelloWorld() {

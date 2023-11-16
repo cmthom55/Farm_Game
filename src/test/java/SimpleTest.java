@@ -15,6 +15,6 @@ public class SimpleTest {
 
         System.setOut(System.out);
 
-        assertEquals("Hello, World!", outContent.toString());
+        assertEquals("Hello, World!\n", outContent.toString());
     }
 }

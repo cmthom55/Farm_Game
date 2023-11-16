@@ -1,5 +1,7 @@
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import java.io.PrintStream;
+import java.io.ByteArrayOutputStream;
 
 public class SimpleTest {
 

@@ -125,7 +125,7 @@ public class FarmGame extends JFrame implements ActionListener {
         if (animalsOnFarm.size() == 0) {
             System.out.println("New animals need to be bought!!");
         } else if (animalsPassed) {
-            System.out.println("An animal has passed!");
+            System.out.println("An animal has passed!!");
         }       
 
         //Checks which wheat crops are alive and produces resources from them
@@ -134,6 +134,7 @@ public class FarmGame extends JFrame implements ActionListener {
             WheatCrop wheatCrop = wheatIterator.next();
             if (wheatCrop.needsReplanting()) {
                 wheatIterator.remove();
+                wheatNeedsReplanting = true;
             } else {
                 wheatCrop.produceProduct();
             }

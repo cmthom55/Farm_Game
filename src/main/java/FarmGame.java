@@ -65,7 +65,10 @@ public class FarmGame extends JFrame implements ActionListener {
     private double affinityValue = Math.random();
     private CropFarmingDecorator cropFarmAffin = new CropFarmingDecorator(mainFarmer);
     private SheepShearerDecorator sheepShearerDecorator = new SheepShearerDecorator(mainFarmer);
-    MoneyMakerDecorator moneyMakerDecorator = new MoneyMakerDecorator(mainFarmer);
+    private MoneyMakerDecorator moneyMakerDecorator = new MoneyMakerDecorator(mainFarmer);
+    
+    private boolean animalsPassed;
+    private boolean wheatNeedsReplanting;
 
     /**
      * Default constructor for the {@code FarmGame} class.
@@ -101,6 +104,8 @@ public class FarmGame extends JFrame implements ActionListener {
      */
     private void update() {
         ticks++;
+        animalsPassed = false;
+        wheatNeedsReplanting = false;
 
         // Do daytime logic (e.g., brighter graphics)
         //Checks which animals are alive and produces resources from them 
@@ -111,7 +116,7 @@ public class FarmGame extends JFrame implements ActionListener {
             Animal animal = iterator.next();
             if (animal.updateDaysRemaining() == false) {
                 iterator.remove();
-                System.out.println("An animal has passed!");
+                animalsPassed = true;
             } else {
                 animal.getProductProducer().produceProduct();
             }
@@ -119,8 +124,9 @@ public class FarmGame extends JFrame implements ActionListener {
         
         if (animalsOnFarm.size() == 0) {
             System.out.println("New animals need to be bought!!");
-        }
-        
+        } else if (animalsPassed) {
+            System.out.println("An animal has passed!");
+        }       
 
         //Checks which wheat crops are alive and produces resources from them
         Iterator<WheatCrop> wheatIterator = wheatCropsOnFarm.iterator();
@@ -128,7 +134,6 @@ public class FarmGame extends JFrame implements ActionListener {
             WheatCrop wheatCrop = wheatIterator.next();
             if (wheatCrop.needsReplanting()) {
                 wheatIterator.remove();
-                System.out.println("A crop needs replanting!");
             } else {
                 wheatCrop.produceProduct();
             }
@@ -136,6 +141,8 @@ public class FarmGame extends JFrame implements ActionListener {
         
         if (wheatCropsOnFarm.size() == 0) {
             System.out.println("New crops need to be bought!!");
+        } else if (wheatNeedsReplanting) {
+            System.out.println("Some crops need replanting!!");
         }
 
         mainFarmer.setFarm(mainFarm);
@@ -191,14 +198,15 @@ public class FarmGame extends JFrame implements ActionListener {
         predCycle.setWheatCropsToEat(wheatCropsOnFarm);
         predCycle.setTimeToHunt(true);
         
-        ArrayList<Animal> animalsOnFarmBeforeHunt = animalsOnFarm;
+        ArrayList<Animal> animalsOnFarmBeforeHunt = new ArrayList<Animal>(animalsOnFarm);
         animalsOnFarm = predCycle.getAnimalsToEat();
         
         if (animalsOnFarmBeforeHunt.size() != animalsOnFarm.size()) {
             System.out.println("Animals were eaten!!");
         }
         
-        ArrayList<WheatCrop> wheatCropsOnFarmBeforeHunt = new ArrayList<WheatCrop>();
+        ArrayList<WheatCrop> wheatCropsOnFarmBeforeHunt = 
+                new ArrayList<WheatCrop>(wheatCropsOnFarm);
         wheatCropsOnFarm = predCycle.getWheatCropsToEat(); 
         
         if (wheatCropsOnFarmBeforeHunt.size() != wheatCropsOnFarm.size()) {

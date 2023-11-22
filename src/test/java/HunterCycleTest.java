@@ -16,6 +16,7 @@ public class HunterCycleTest {
     private Predator predator;
     private Predator predator2;
     private Predator predator3;
+    private Predator predator4;
 
     /**
      * Sets up test predators and hunterCycle.
@@ -25,7 +26,8 @@ public class HunterCycleTest {
         hunterCycle = new HunterCycle();
         predator = new Predator("Tiger", "Cow");
         predator2 = new Predator("Mole", "Wheat");
-        predator3 = new Predator("Wolf", "Sheep");    
+        predator3 = new Predator("Wolf", "Sheep"); 
+        predator4 = new Predator("Fox", "Chicken");
     }
 
     @Test
@@ -46,13 +48,14 @@ public class HunterCycleTest {
         hunterCycle.addObserver(predator);
         hunterCycle.addObserver(predator2);
         hunterCycle.addObserver(predator3);
+        hunterCycle.addObserver(predator4);
 
-        while (hunterCycle.getAnimalsToEat().size() != 1 
+        while (hunterCycle.getAnimalsToEat().size() != 0 
                 || !hunterCycle.getWheatCropsToEat().isEmpty()) {
             hunterCycle.setTimeToHunt(true); 
         }
         
-        assertEquals(1, hunterCycle.getAnimalsToEat().size());
+        assertEquals(0, hunterCycle.getAnimalsToEat().size());
         assertTrue(hunterCycle.getWheatCropsToEat().isEmpty());
     }
 

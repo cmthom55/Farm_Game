@@ -23,6 +23,8 @@ class HunterCycle implements HunterCycleSubject {
     private ArrayList<HunterCycleObserver> observers = new ArrayList<>();
     private ArrayList<Animal> animalsOnFarmToEat = new ArrayList<>();
     private ArrayList<WheatCrop> wheatCropsToEat = new ArrayList<>();
+    private boolean animalsEaten = false;
+    private boolean wheatEaten = false;
 
     /**
      * Sets whether it is time to initiate the hunt cycle.
@@ -64,13 +66,18 @@ class HunterCycle implements HunterCycleSubject {
         for (HunterCycleObserver observer : observers) {
             if (observer.updateHuntCycle()) {
                 String prey = observer.getPrey();
-
                 if ("Cow".equals(prey)) {
+                    this.setAnimalsEaten(true);
                     removeFirstCow();
                 } else if ("Sheep".equals(prey)) {
                     removeFirstSheep();
+                    this.setAnimalsEaten(true);
                 } else if ("Wheat".equals(prey)) {
                     removeFirstWheat();
+                    this.setWheatEaten(true);
+                } else if ("Chicken".equals(prey)) {
+                    removeFirstChicken();
+                    this.setAnimalsEaten(true);
                 }
             }
         }
@@ -107,6 +114,18 @@ class HunterCycle implements HunterCycleSubject {
         }
     }
 
+    // Helper method to remove the first cow from the list
+    private void removeFirstChicken() {
+        Iterator<Animal> iterator = animalsOnFarmToEat.iterator();
+        while (iterator.hasNext()) {
+            Animal animal = iterator.next();
+            if (animal instanceof Chicken) {
+                iterator.remove();
+                break; // Stop after removing the first cow
+            }
+        }
+    }
+    
     /**
      * Gets the list of animals available for hunting during the night.
      *
@@ -141,5 +160,21 @@ class HunterCycle implements HunterCycleSubject {
      */
     public void setWheatCropsToEat(ArrayList<WheatCrop> wheatCropsToEat) {
         this.wheatCropsToEat = wheatCropsToEat;
+    }
+
+    public boolean isAnimalsEaten() {
+        return animalsEaten;
+    }
+
+    public void setAnimalsEaten(boolean animalsEaten) {
+        this.animalsEaten = animalsEaten;
+    }
+
+    public boolean isWheatEaten() {
+        return wheatEaten;
+    }
+
+    public void setWheatEaten(boolean wheatEaten) {
+        this.wheatEaten = wheatEaten;
     }
 }

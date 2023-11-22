@@ -199,19 +199,18 @@ public class FarmGame extends JFrame implements ActionListener {
         predCycle.setWheatCropsToEat(wheatCropsOnFarm);
         predCycle.setTimeToHunt(true);
         
-        ArrayList<Animal> animalsOnFarmBeforeHunt = new ArrayList<Animal>(animalsOnFarm);
         animalsOnFarm = predCycle.getAnimalsToEat();
         
-        if (animalsOnFarmBeforeHunt.size() != animalsOnFarm.size()) {
+        if (predCycle.isAnimalsEaten()) {
             System.out.println("Animals were eaten!!");
+            predCycle.setAnimalsEaten(false);
         }
         
-        ArrayList<WheatCrop> wheatCropsOnFarmBeforeHunt = 
-                new ArrayList<WheatCrop>(wheatCropsOnFarm);
         wheatCropsOnFarm = predCycle.getWheatCropsToEat(); 
         
-        if (wheatCropsOnFarmBeforeHunt.size() != wheatCropsOnFarm.size()) {
+        if (predCycle.isWheatEaten()) {
             System.out.println("Some wheat crops were eaten!!");
+            predCycle.setWheatEaten(false);
         }
     }
 

@@ -114,14 +114,14 @@ class HunterCycle implements HunterCycleSubject {
         }
     }
 
-    // Helper method to remove the first cow from the list
+    // Helper method to remove the first chicken from the list
     private void removeFirstChicken() {
         Iterator<Animal> iterator = animalsOnFarmToEat.iterator();
         while (iterator.hasNext()) {
             Animal animal = iterator.next();
             if (animal instanceof Chicken) {
                 iterator.remove();
-                break; // Stop after removing the first cow
+                break;
             }
         }
     }

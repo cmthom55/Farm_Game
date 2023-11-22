@@ -262,6 +262,8 @@ public class FarmGame extends JFrame implements ActionListener {
      */
     private void drawBackground(Graphics g, boolean isDay) {
         // Use resource loading to load the appropriate background image
+        // I attempted a day and night circle but it did not work
+        // with my render
         String backgroundImagePath = 
                 isDay ? "/FarmBackground.jpg" : "/FarmNightBackground.jpg";
         Image backgroundImage = 

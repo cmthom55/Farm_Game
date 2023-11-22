@@ -1,4 +1,4 @@
-# assign5_ser316-fall23B-cmthom55 
+# assign5_ser316-fall23B-cmthom55
 Sources for the Design Patterns I used:
 - Observer: https://refactoring.guru/design-patterns/observer
 - Strategy: https://refactoring.guru/design-patterns/strategy
